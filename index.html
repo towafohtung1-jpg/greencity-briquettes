@@ -9,7 +9,7 @@
 ║   EMAIL:      towafohtung1@gmail.com                         ║
 ║   PHONE:      +237 683009211                                 ║
 ║   DATE:       2026                                           ║
-║   VERSION:    1.0                                            ║
+║   VERSION:    4.0 (Clickable Images with Popups)             ║
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
 -->
@@ -31,6 +31,219 @@
 
     <link rel="stylesheet" href="assets/css/style-gcb.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+
+    <style>
+        /* ===== PRODUCT CARD IMAGES ===== */
+        .product-img-card {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 16px 16px 0 0;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .product-img-card:hover {
+            transform: scale(1.03);
+        }
+
+        .stove-img {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .stove-img:hover {
+            transform: scale(1.03);
+        }
+
+        /* ===== PRODUCT MODAL ===== */
+        .product-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
+        }
+
+        .product-modal.active {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-modal-content {
+            background: #fff;
+            border-radius: 20px;
+            max-width: 550px;
+            width: 92%;
+            max-height: 92vh;
+            overflow-y: auto;
+            padding: 0;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        .product-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            font-size: 30px;
+            color: #fff;
+            cursor: pointer;
+            transition: color 0.3s;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-modal-close:hover {
+            background: rgba(0, 0, 0, 0.7);
+            color: #f57c00;
+        }
+
+        .product-modal-img-wrapper {
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+            border-radius: 20px 20px 0 0;
+            background: #f5f5f0;
+        }
+
+        .product-modal-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #fafaf8;
+            padding: 10px;
+        }
+
+        .product-modal-body {
+            padding: 24px 28px 28px;
+        }
+
+        .product-modal-body h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #1e2a1e;
+        }
+
+        .product-modal-body .category-tag {
+            display: inline-block;
+            background: rgba(245, 124, 0, 0.1);
+            color: #f57c00;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .product-modal-body p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 12px;
+            font-size: 0.95rem;
+        }
+
+        .product-modal-body .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 12px 0 16px;
+        }
+
+        .product-modal-body .features span {
+            background: #f5f5f0;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .product-modal-body .btn-wa-modal {
+            display: block;
+            background: #25D366;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-top: 8px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .product-modal-body .btn-wa-modal:hover {
+            background: #128C7E;
+            transform: scale(1.02);
+        }
+
+        .product-modal-body .btn-wa-modal i {
+            margin-right: 8px;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .product-modal-img-wrapper {
+                height: 220px;
+            }
+            .product-modal-body {
+                padding: 18px 20px 22px;
+            }
+            .product-modal-body h2 {
+                font-size: 1.2rem;
+            }
+            .product-img-card {
+                height: 160px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .product-modal-img-wrapper {
+                height: 180px;
+            }
+            .product-modal-body {
+                padding: 14px 16px 18px;
+            }
+            .product-modal-body h2 {
+                font-size: 1rem;
+            }
+            .product-modal-body p {
+                font-size: 0.85rem;
+            }
+            .product-img-card {
+                height: 140px;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -38,7 +251,7 @@
     <nav class="navbar">
         <div class="container nav-container">
             <div class="logo">
-                <img src="../../assets/images/greencity-briquette-logo.png" alt="GreenCity Foods Logo" style="height: 70px; max-width: 100%; object-fit: contain;">
+                <img src="assets/images/greencity-briquette-logo.png" alt="GreenCity Briquettes Logo" style="height: 70px; width: auto; max-width: 220px; object-fit: contain;" />
             </div>
             <ul class="nav-links">
                 <li><a href="#stoves"><i class="fas fa-fire"></i> Stoves</a></li>
@@ -79,7 +292,7 @@
         </div>
     </section>
 
-       <!-- ===== STOVES SECTION ===== -->
+    <!-- ===== STOVES SECTION ===== -->
     <section id="stoves" class="section stoves-section">
         <div class="container">
             <div class="section-header">
@@ -87,25 +300,22 @@
                 <h2>Commercial <span class="highlight">Stove</span></h2>
                 <p>Custom-built for commercial kitchens, restaurants, and small businesses</p>
             </div>
-
             <div class="stove-single">
                 <div class="stove-card">
                     <div class="stove-img-wrapper">
-                        <img src="assets/images/Commercial_Eco_Cookstove_Unit.jpeg" alt="Commercial Stove" class="stove-img" />
+                        <img src="assets/images/Commercial_Eco_Cookstove_Unit.jpeg" alt="Commercial Stove" class="stove-img" onclick="openProductModal('Commercial Stove', 'assets/images/Commercial_Eco_Cookstove_Unit.jpeg', 'Eco-friendly commercial cookstove designed for efficient cooking and minimal smoke. Built for durability and high performance.', ['Capacity: 50L-100L', 'Fuel: Honey Comb Charcoal', 'Ideal for restaurants & caterers', 'Durable & efficient'] )" />
                     </div>
                     <div class="stove-info">
                         <h3>Commercial Stove</h3>
-                        <p><strong>Capacity:</strong> 50kg/day</p>
+                        <p><strong>Capacity:</strong> 50L - 100L</p>
                         <p><strong>Ideal for:</strong> Small restaurants, caterers, and local businesses</p>
-                        <p><strong>Fuel:</strong> Charcoal briquettes</p>
+                        <p><strong>Fuel:</strong> Honey Comb Charcoal Briquettes</p>
                         <p><strong>Features:</strong> Durable, efficient, and easy to use</p>
-                        <button class="btn-learn-more" onclick="openModal('stove')"><i class="fas fa-info-circle"></i> Product Details</button>
                         <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20order%20Commercial%20Stove" 
-                        target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Inquire via WhatsApp</a>
+                           target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Inquire via WhatsApp</a>
                     </div>
                 </div>
             </div>
-
             <div class="stove-note">
                 <p><i class="fas fa-bolt" style="color:#f57c00;"></i> <strong>Custom Orders:</strong> We build stoves to your specifications. Contact us for a custom quote.</p>
             </div>
@@ -122,139 +332,62 @@
             </div>
             <div class="charcoal-grid">
                 <!-- Hexagonal Briquettes -->
-                <div class="charcoal-card">
-                    <div class="charcoal-img-wrap">
-                        <img src="assets/images/Hexagonal_Eco_Briquettes_with_Logo.jpeg" alt="Hexagonal Briquettes" class="product-img-card" />
-                    </div>
+                <div class="charcoal-card product-card" data-name="Hexagonal Briquettes" data-image="assets/images/Hexagonal_Eco_Briquettes_with_Logo.jpeg" data-description="Premium hexagonal charcoal briquettes made from 100% natural and renewable resources. Perfect for BBQ, restaurants, and industrial applications." data-features='["100% Natural", "High Heat", "Long Lasting", "Eco Friendly"]'>
+                    <img src="assets/images/Hexagonal_Eco_Briquettes_with_Logo.jpeg" alt="Hexagonal Briquettes" class="product-img-card" onclick="openProductModalFromCard(this)" />
                     <div class="charcoal-info">
                         <h3>Hexagonal Briquettes</h3>
                         <p><strong>Shape:</strong> Hexagon</p>
                         <p><strong>Uses:</strong> BBQ, restaurants, industrial</p>
                         <p><strong>Burning time:</strong> Long-lasting</p>
-                        <button class="btn-learn-more" onclick="openModal('hexagonal')"><i class="fas fa-info-circle"></i> Product Details</button>
                         <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20order%20Hexagonal%20Briquettes" 
-                        target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
+                           target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
                     </div>
                 </div>
 
                 <!-- Pillow Shape Briquettes -->
-                <div class="charcoal-card featured">
-                    <div class="charcoal-img-wrap">
-                        <img src="assets/images/bbq_grill_charcoal_front_bag.jpeg" alt="Pillow Shape Briquettes" class="product-img-card" />
-                    </div>
+                <div class="charcoal-card product-card" data-name="Pillow Shape Briquettes" data-image="assets/images/bbq_grill_charcoal_front_bag.jpeg" data-description="Pillow-shaped charcoal briquettes designed for consistent heat output. Ideal for BBQ and commercial kitchens." data-features='["100% Natural", "Consistent Heat", "4-5 hours burn time"]'>
+                    <img src="assets/images/bbq_grill_charcoal_front_bag.jpeg" alt="Pillow Shape Briquettes" class="product-img-card" onclick="openProductModalFromCard(this)" />
                     <div class="charcoal-info">
                         <h3>Pillow Shape Briquettes</h3>
                         <p><strong>Shape:</strong> Pillow / Oval</p>
                         <p><strong>Uses:</strong> BBQ, commercial kitchens</p>
                         <p><strong>Burning time:</strong> 4–5 hours</p>
-                        <button class="btn-learn-more" onclick="openModal('pillow')"><i class="fas fa-info-circle"></i> Product Details</button>
                         <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20order%20Pillow%20Shape%20Briquettes" 
                         target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
                     </div>
                 </div>
-
                 <!-- Honey Comb Briquettes -->
-                <div class="charcoal-card">
-                    <div class="charcoal-img-wrap">
-                        <img src="assets/images/Honeycomb_Biomass_Briquettes_withlogo.jpeg" alt="Honey Comb Briquettes" class="product-img-card" />
-                    </div>
+                <div class="charcoal-card product-card" data-name="Honey Comb Briquettes" data-image="assets/images/Honeycomb_Biomass_Briquettes_withlogo.jpeg" data-description="Honeycomb briquettes with unique hole design for optimal airflow and long-lasting burn. Perfect for industrial use." data-features='["Long Burning", "100% Natural", "Industrial Use", "6-8 hours burn time"]'>
+                    <img src="assets/images/Honeycomb_Biomass_Briquettes_withlogo.jpeg" alt="Honey Comb Briquettes" class="product-img-card" onclick="openProductModalFromCard(this)" />
                     <div class="charcoal-info">
                         <h3>Honey Comb Briquettes</h3>
                         <p><strong>Shape:</strong> Honeycomb with holes</p>
                         <p><strong>Uses:</strong> Industrial, long-burning</p>
                         <p><strong>Burning time:</strong> 6–8 hours</p>
-                        <button class="btn-learn-more" onclick="openModal('honeycomb')"><i class="fas fa-info-circle"></i> Product Details</button>
                         <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20order%20Honey%20Comb%20Briquettes" 
-                        target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
+                           target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
                     </div>
                 </div>
 
                 <!-- Shisha Briquettes -->
-                <div class="charcoal-card">
-                    <div class="charcoal-img-wrap">
-                        <img src="assets/images/shisha_cube_charcoal_1KG_front_box.jpeg" alt="Shisha Briquettes" class="product-img-card" />
-                    </div>
+                <div class="charcoal-card product-card" data-name="Shisha Briquettes" data-image="assets/images/shisha_cube_charcoal_1KG_front_box.jpeg" data-description="Premium shisha charcoal cubes made from 100% natural and renewable resources. Designed for a cleaner, longer and hotter burn." data-features='["Shisha", "100% Natural", "Clean Burn", "1-2 hours burn time"]'>
+                    <img src="assets/images/shisha_cube_charcoal_1KG_front_box.jpeg" alt="Shisha Briquettes" class="product-img-card" onclick="openProductModalFromCard(this)" />
                     <div class="charcoal-info">
                         <h3>Shisha Briquettes</h3>
                         <p><strong>Shape:</strong> Small round / square</p>
                         <p><strong>Uses:</strong> Hookah / shisha smoking</p>
                         <p><strong>Burning time:</strong> 1–2 hours</p>
-                        <button class="btn-learn-more" onclick="openModal('shisha')"><i class="fas fa-info-circle"></i> Product Details</button>
                         <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20order%20Shisha%20Briquettes" 
-                        target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
+                           target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
                     </div>
                 </div>
             </div>
             <div class="charcoal-note">
                 <p><i class="fas fa-recycle" style="color:#2e7d32;"></i> Made from 100% agricultural waste – kitchen peelings &amp; farm byproducts</p>
-                <p style="margin-top:6px; font-size:0.8rem;"><i class="fas fa-check-circle" style="color:#2e7d32;"></i> Clean-burning • <i class="fas fa-check-circle" style="color:#2e7d32;"></i> Smoke-free • <i class="fas fa-check-circle" style="color:#2e7d32;"></i> Eco-friendly</p>
+                <p style="margin-top:6px; font-size:0.85rem;"><i class="fas fa-check-circle" style="color:#2e7d32;"></i> Clean-burning • <i class="fas fa-check-circle" style="color:#2e7d32;"></i> Smoke-free • <i class="fas fa-check-circle" style="color:#2e7d32;"></i> Eco-friendly</p>
             </div>
         </div>
     </section>
-
-    <!-- ===== RAW MATERIALS ===== -->  
-            <div class="raw-materials-content">
-                <h3><i class="fas fa-seedling"></i> Primary Raw Materials</h3>
-                <p>
-                    Our premium briquettes are made from <strong>Palm Kernel Shells</strong> and 
-                    <strong>Coconut Shells</strong> – 100% natural, renewable, and sustainable resources.
-                </p>
-                <div class="raw-materials-grid">
-                    <div class="raw-item">
-                        <i class="fas fa-tree"></i>
-                        <span>Palm Kernel Shells</span>
-                        <small>High density, long burn time</small>
-                    </div>
-                    <div class="raw-item">
-                        <i class="fas fa-coconut"></i>
-                        <span>Coconut Shells</span>
-                        <small>Clean burn, high heat output</small>
-                    </div>
-                    <div class="raw-item">
-                        <i class="fas fa-leaf"></i>
-                        <span>Cassava Starch</span>
-                        <small>Natural binder, food-grade</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ===== PARTNERSHIPS ===== -->  
-        <div class="container">
-            <div class="section-title animate-on-scroll">
-                <span class="badge"><i class="fas fa-handshake"></i> Partnerships</span>
-                <h2>Our <span class="highlight">Partners &amp; Distributors</span></h2>
-                <p>Collaborating with trusted partners to deliver quality products</p>
-            </div>
-            <div class="partners-grid animate-on-scroll">
-                <div class="partner-card">
-                    <i class="fas fa-store"></i>
-                    <h4>Local Distributors</h4>
-                    <p>Partnering with local businesses to make our products accessible</p>
-                </div>
-                <div class="partner-card">
-                    <i class="fas fa-truck"></i>
-                    <h4>Logistics Partners</h4>
-                    <p>Reliable transportation for timely delivery</p>
-                </div>
-                <div class="partner-card">
-                    <i class="fas fa-handshake"></i>
-                    <h4>Strategic Alliances</h4>
-                    <p>Collaborating with organizations that share our vision</p>
-                </div>
-                <div class="partner-card">
-                    <i class="fas fa-globe-africa"></i>
-                    <h4>International Partners</h4>
-                    <p>Expanding our reach to global markets</p>
-                </div>
-            </div>
-            <div class="partners-note">
-                <p><i class="fas fa-info-circle"></i> Interested in becoming a distributor? <a href="#contact">Contact us</a> to learn more.</p>
-            </div>
-        </div>
-    </section>
-
-    
 
     <!-- ===== ABOUT ===== -->
     <section id="about" class="section about-section">
@@ -271,57 +404,11 @@
                         <li><i class="fas fa-check-circle" style="color:#2e7d32;"></i> <strong>Affordable</strong> – Competitive pricing for bulk orders</li>
                     </ul>
                     <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20know%20more%20about%20GreenCity%20Briquettes" 
-                       target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Inquire Now</a>
+                    target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Inquire Now</a>
                 </div>
                 <div class="about-image">
-                    <div class="about-img-placeholder"><i class="fas fa-fire" style="font-size:48px;"></i><br>GreenCity<br>Briquettes</div>
+                    <img src="assets/images/greencity-briquette-logo.png" alt="GreenCity Briquettes Logo" style="width: 100%; max-width: 300px; height: auto; display: block; margin: 0 auto;" />
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== CUSTOMER REVIEWS ===== -->  <!-- ✅ ADD THIS SECTION HERE (after Gallery, before Contact) -->
-    <section class="reviews-section">
-        <div class="container">
-            <div class="section-title animate-on-scroll">
-                <span class="badge"><i class="fas fa-star"></i> Testimonials</span>
-                <h2>What Our <span class="highlight">Customers Say</span></h2>
-                <p>Real feedback from real customers</p>
-            </div>
-            <div class="reviews-grid animate-on-scroll">
-                <div class="review-card">
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p>"Excellent quality charcoal! Burns long and clean. I highly recommend GreenCity Briquettes."</p>
-                    <div class="review-author">
-                        <strong>— John Doe</strong>
-                        <span>Restaurant Owner, Douala</span>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p>"The shisha briquettes are the best I've ever used. Consistent heat and no smoke."</p>
-                    <div class="review-author">
-                        <strong>— Jane Smith</strong>
-                        <span>Shisha Lounge, Yaoundé</span>
-                    </div>
-                </div>
-                <div class="review-card">
-                    <div class="review-stars">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p>"GreenCity's charcoal is the perfect fuel for my catering business. Reliable and consistent."</p>
-                    <div class="review-author">
-                        <strong>— Michael N.</strong>
-                        <span>Caterer, Buea</span>
-                    </div>
-                </div>
-            </div>
-            <div class="reviews-cta">
-                <p><i class="fas fa-comment"></i> Have a story to share? <a href="#contact">Leave a review</a></p>
             </div>
         </div>
     </section>
@@ -340,7 +427,7 @@
                         <span class="contact-icon"><i class="fas fa-phone" style="color:#f57c00;"></i></span>
                         <div>
                             <h4>Phone</h4>
-                            <p>+237 683009211</p>
+                            <p>+237 XXX XXX XXX</p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -379,19 +466,34 @@
         </div>
     </section>
 
+    <!-- ===== PRODUCT MODAL ===== -->
+    <div id="productModal" class="product-modal">
+        <div class="product-modal-content">
+            <button class="product-modal-close" onclick="closeProductModal()">&times;</button>
+            <div class="product-modal-img-wrapper">
+                <img id="modalProductImage" src="" alt="Product" class="product-modal-img" />
+            </div>
+            <div class="product-modal-body">
+                <h2 id="modalProductTitle">Product Name</h2>
+                <span class="category-tag" id="modalProductCategory">Product</span>
+                <p id="modalProductDescription">Product description goes here.</p>
+                <div class="features" id="modalProductFeatures">
+                    <span>Feature 1</span>
+                    <span>Feature 2</span>
+                    <span>Feature 3</span>
+                </div>
+                <a id="modalWhatsAppLink" href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20order%20this%20product" 
+                   target="_blank" class="btn-wa-modal"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2026 GreenCity Foods – A Division of GreenCity Enterprises</p>
-                <p><i class="fas fa-seedling" style="color:#81c784;"></i> Sustainably Processed in Cameroon</p>
-            </div>
-                        <div class="footer-logos" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; align-items: center;">
-                <!-- GreenCity Enterprises Logo -->
-                <img src="../assets/images/greencity-foods-logo.png" alt="GreenCity Enterprises" style="height: 70px; object-fit: contain;">
-                
-                <!-- GreenCity Briquette Logo -->
-                <img src="../assets/images/greencity-briquette-logo.png" alt="GreenCity Briquette" style="height: 70px; object-fit: contain;">
+                <p>&copy; 2026 GreenCity Briquettes – A Division of GreenCity Enterprises</p>
+                <p><i class="fas fa-fire" style="color:#f57c00;"></i> Sustainable Energy for Urban Living – Kumba, Cameroon</p>
             </div>
             <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.06);">
                 <p style="font-size:0.7rem; color:rgba(255,255,255,0.25);">
@@ -413,8 +515,63 @@
         </div>
     </footer>
 
-    <!-- ===== TMF CONSOLE SIGNATURE ===== -->
+    <!-- ===== MODAL JAVASCRIPT ===== -->
     <script>
+        // ===== OPEN MODAL =====
+        function openProductModal(name, image, description, features, category) {
+            document.getElementById('modalProductTitle').textContent = name;
+            document.getElementById('modalProductImage').src = image;
+            document.getElementById('modalProductDescription').textContent = description;
+            document.getElementById('modalProductCategory').textContent = category || 'Product';
+            
+            var featuresContainer = document.getElementById('modalProductFeatures');
+            featuresContainer.innerHTML = '';
+            if (features && Array.isArray(features)) {
+                features.forEach(function(feature) {
+                    var span = document.createElement('span');
+                    span.textContent = feature;
+                    featuresContainer.appendChild(span);
+                });
+            }
+            
+            var waLink = document.getElementById('modalWhatsAppLink');
+            waLink.href = 'https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20order%20' + encodeURIComponent(name);
+            
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // ===== OPEN FROM CARD (click on image) =====
+        function openProductModalFromCard(imgElement) {
+            var card = imgElement.closest('.product-card');
+            var name = card.dataset.name;
+            var image = card.dataset.image;
+            var description = card.dataset.description;
+            var features = card.dataset.features ? JSON.parse(card.dataset.features) : [];
+            openProductModal(name, image, description, features);
+        }
+
+        // ===== CLOSE MODAL =====
+        function closeProductModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // ===== CLOSE ON CLICK OUTSIDE =====
+        document.getElementById('productModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeProductModal();
+            }
+        });
+
+        // ===== CLOSE ON ESC =====
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeProductModal();
+            }
+        });
+
+        // ===== TMF CONSOLE SIGNATURE =====
         console.log('%c TMF ', 'background:#2e7d32;color:#fff;font-size:22px;font-weight:800;padding:10px 20px;border-radius:4px 0 0 4px;');
         console.log('%c Think. Make. Flow. ', 'background:#f57c00;color:#fff;font-size:14px;padding:10px 20px;border-radius:0 4px 4px 0;');
         console.log('%c Towa Munwu Fohtung • Lead Web Developer & Designer ', 'background:#1e2a1e;color:#ccc;font-size:12px;padding:8px 20px;');
@@ -423,127 +580,5 @@
         console.log('%c ⚡ Built with ❤️ in Cameroon ', 'background:#0f1a0f;color:#888;font-size:11px;padding:6px 20px;border-radius:0 0 4px 4px;');
     </script>
 
-    <!-- ===== PRODUCT MODAL ===== -->
-<div id="productModal" class="modal">
-    <div class="modal-content">
-        <button class="modal-close" onclick="closeModal()">&times;</button>
-        <div id="modalBody" class="modal-body">
-            <!-- Content loaded dynamically via JavaScript -->
-        </div>
-    </div>
-</div>
-
-    <script>
-    // Product data
-    const productData = {
-        stove: {
-        name: 'Commercial Stove',
-        image: 'assets/images/Commercial_Eco_Cookstove_Unit.jpeg',
-        description: 'Eco-friendly commercial cookstove designed for efficient cooking and minimal smoke. Built for durability and high performance.',
-        details: [
-            'Capacity: 50kg/day',
-            'Ideal for: Small restaurants, caterers, local businesses',
-            'Fuel: Charcoal briquettes',
-            'Features: Durable, efficient, easy to use',
-            'Eco-friendly design'
-        ],
-        tags: ['Eco-Friendly', 'Durable', 'High Performance']
-        },
-        hexagonal: {
-            name: 'Hexagonal Briquettes',
-            image: 'assets/images/Hexagonal_Eco_Briquettes_with_Logo.jpeg',
-            description: 'Premium hexagonal charcoal briquettes made from 100% natural and renewable resources.',
-            details: [
-                'Shape: Hexagon',
-                'Uses: BBQ, restaurants, industrial',
-                'Burning time: Long-lasting',
-                '100% Natural & Eco-friendly'
-            ],
-            tags: ['100% Natural', 'High Heat', 'Long Lasting']
-        },
-        pillow: {
-            name: 'Pillow Shape Briquettes',
-            image: 'assets/images/bbq_grill_charcoal_front_bag.jpeg',
-            description: 'Pillow-shaped charcoal briquettes designed for consistent heat output.',
-            details: [
-                'Shape: Pillow / Oval',
-                'Uses: BBQ, commercial kitchens',
-                'Burning time: 4–5 hours',
-                '100% Natural & Eco-friendly'
-            ],
-            tags: ['Most Popular', '100% Natural', 'Consistent Heat']
-        },
-        honeycomb: {
-            name: 'Honey Comb Briquettes',
-            image: 'assets/images/Honeycomb_Biomass_Briquettes_withlogo.jpeg',
-            description: 'Honeycomb briquettes with unique hole design for optimal airflow.',
-            details: [
-                'Shape: Honeycomb with holes',
-                'Uses: Industrial, long-burning',
-                'Burning time: 6–8 hours',
-                '100% Natural & Eco-friendly'
-            ],
-            tags: ['Long Burning', '100% Natural', 'Industrial']
-        },
-        shisha: {
-            name: 'Shisha Briquettes',
-            image: 'assets/images/shisha_cube_charcoal_1KG_front_box.jpeg',
-            description: 'Premium shisha charcoal cubes made from 100% natural and renewable resources.',
-            details: [
-                'Shape: Small round / square',
-                'Uses: Hookah / shisha smoking',
-                'Burning time: 1–2 hours',
-                '100% Natural & Eco-friendly'
-            ],
-            tags: ['Shisha', '100% Natural', 'Clean Burn']
-        }
-    };
-
-    function openModal(productId) {
-        const product = productData[productId];
-        if (!product) return;
-
-        const modal = document.getElementById('productModal');
-        const modalBody = document.getElementById('modalBody');
-
-        modalBody.innerHTML = `
-            <h2>${product.name}</h2>
-            <img src="${product.image}" alt="${product.name}" class="modal-img" />
-            <p class="modal-description">${product.description}</p>
-            <div class="modal-details">
-                ${product.details.map(d => `<p><strong>•</strong> ${d}</p>`).join('')}
-            </div>
-            <div>
-                ${product.tags.map(t => `<span class="modal-tag">${t}</span>`).join('')}
-            </div>
-            <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20order%20${encodeURIComponent(product.name)}" 
-               target="_blank" class="btn-wa-modal"><i class="fab fa-whatsapp"></i> Order ${product.name}</a>
-        `;
-
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        document.getElementById('productModal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-        const modal = document.getElementById('productModal');
-        if (event.target === modal) {
-            closeModal();
-        }
-    }
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeModal();
-        }
-    });
-</script>
-</script>
 </body>
 </html>
