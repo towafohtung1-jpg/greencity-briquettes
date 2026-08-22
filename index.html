@@ -9,7 +9,7 @@
 ║   EMAIL:      towafohtung1@gmail.com                         ║
 ║   PHONE:      +237 683009211                                 ║
 ║   DATE:       2026                                           ║
-║   VERSION:    4.0 (Clickable Images with Popups)             ║
+║   VERSION:    4.0 (With Gallery)                             ║
 ║                                                               ║
 ╚═══════════════════════════════════════════════════════════════╝
 -->
@@ -54,6 +54,69 @@
 
         .stove-img:hover {
             transform: scale(1.03);
+        }
+
+        /* ===== GALLERY ===== */
+        .gallery-section {
+            padding: 60px 0;
+            background: #fafaf8;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1 / 1;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: #e8f5e9;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 2px dashed #81c784;
+            border-radius: 12px;
+        }
+
+        .gallery-placeholder i {
+            font-size: 32px;
+            margin-bottom: 8px;
+            opacity: 0.5;
+        }
+
+        .gallery-placeholder span {
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+
+        .gallery-note {
+            text-align: center;
+            margin-top: 24px;
+            padding: 12px;
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .gallery-note i {
+            color: #f57c00;
+            margin-right: 6px;
         }
 
         /* ===== PRODUCT MODAL ===== */
@@ -198,7 +261,6 @@
             margin-right: 8px;
         }
 
-        /* ===== ANIMATIONS ===== */
         @keyframes slideUp {
             from {
                 opacity: 0;
@@ -224,6 +286,16 @@
             .product-img-card {
                 height: 160px;
             }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+            .gallery-placeholder i {
+                font-size: 24px;
+            }
+            .gallery-placeholder span {
+                font-size: 0.65rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -242,6 +314,16 @@
             .product-img-card {
                 height: 140px;
             }
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            .gallery-placeholder i {
+                font-size: 20px;
+            }
+            .gallery-placeholder span {
+                font-size: 0.55rem;
+            }
         }
     </style>
 </head>
@@ -251,12 +333,13 @@
     <nav class="navbar">
         <div class="container nav-container">
             <div class="logo">
-                <img src="assets/images/greencity-briquette-logo.png" alt="greenCity Briquettes Logo" style="height: 70px; width: auto; max-width: 220px; object-fit: contain;" />
+                <img src="assets/images/greencity-briquette-logo.png" alt="GreenCity Briquettes Logo" style="height: 70px; width: auto; max-width: 220px; object-fit: contain;" />
             </div>
             <ul class="nav-links">
                 <li><a href="#stoves"><i class="fas fa-fire"></i> Stoves</a></li>
                 <li><a href="#charcoal"><i class="fas fa-cube"></i> Charcoal</a></li>
                 <li><a href="#about"><i class="fas fa-info-circle"></i> About</a></li>
+                <li><a href="#gallery"><i class="fas fa-images"></i> Gallery</a></li>
                 <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
             </ul>
             <a href="https://wa.me/237XXXXXXXXX?text=Hello%20GreenCity%20Briquettes%20–%20I%20want%20to%20place%20an%20order" 
@@ -293,53 +376,51 @@
     </section>
 
     <!-- ===== STOVES SECTION ===== -->
-<section id="stoves" class="section stoves-section">
-    <div class="container">
-        <div class="section-header">
-            <span class="badge"><i class="fas fa-fire"></i> Our Stoves</span>
-            <h2>Commercial <span class="highlight">Stoves</span></h2>
-            <p>Custom-built for commercial kitchens, restaurants, and mobile catering</p>
-        </div>
-
-        <div class="stove-grid">
-            <!-- Commercial Stove -->
-            <div class="stove-card">
-                <div class="stove-img-wrapper">
-                    <img src="assets/images/Commercial_Eco_Cookstove_Unit.jpeg" alt="Commercial Stove" class="stove-img" onclick="openProductModal('Commercial Stove', 'assets/images/Commercial_Eco_Cookstove_Unit.jpeg', 'Eco-friendly commercial cookstove designed for efficient cooking and minimal smoke. Built for durability and high performance.', ['Capacity: 50L-100L', 'Fuel: Honey Comb Charcoal', 'Ideal for restaurants & caterers', 'Durable & efficient'] )" />
+    <section id="stoves" class="section stoves-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="badge"><i class="fas fa-fire"></i> Our Stoves</span>
+                <h2>Commercial <span class="highlight">Stoves</span></h2>
+                <p>Custom-built for commercial kitchens, restaurants, and mobile catering</p>
+            </div>
+            <div class="stove-grid">
+                <!-- Commercial Stove -->
+                <div class="stove-card">
+                    <div class="stove-img-wrapper">
+                        <img src="assets/images/Commercial_Eco_Cookstove_Unit.jpeg" alt="Commercial Stove" class="stove-img" onclick="openProductModal('Commercial Stove', 'assets/images/Commercial_Eco_Cookstove_Unit.jpeg', 'Eco-friendly commercial cookstove designed for efficient cooking and minimal smoke. Built for durability and high performance.', ['Capacity: 50L-100L', 'Fuel: Honey Comb Charcoal', 'Ideal for restaurants & caterers', 'Durable & efficient'] )" />
+                    </div>
+                    <div class="stove-info">
+                        <h3>Commercial Stove</h3>
+                        <p><strong>Capacity:</strong> 50L - 100L</p>
+                        <p><strong>Ideal for:</strong> Restaurants, caterers, fixed kitchens</p>
+                        <p><strong>Fuel:</strong> Honey Comb Charcoal Briquettes</p>
+                        <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20order%20Commercial%20Stove" 
+                           target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Inquire via WhatsApp</a>
+                    </div>
                 </div>
-                <div class="stove-info">
-                    <h3>Commercial Stove</h3>
-                    <p><strong>Capacity:</strong> 50L - 100L</p>
-                    <p><strong>Ideal for:</strong> Restaurants, caterers, fixed kitchens</p>
-                    <p><strong>Fuel:</strong> Honey Comb Charcoal Briquettes</p>
-                    <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20order%20Commercial%20Stove" 
-                       target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Inquire via WhatsApp</a>
+
+                <!-- Mobile Commercial Stove -->
+                <div class="stove-card featured">
+                    <div class="stove-badge"><i class="fas fa-star"></i> MOBILE</div>
+                    <div class="stove-img-wrapper">
+                        <img src="assets/images/Commercial_Eco_Cookstove_Unit.jpeg" alt="Mobile Commercial Stove" class="stove-img" onclick="openProductModal('Mobile Commercial Stove', 'assets/images/Commercial_Eco_Cookstove_Unit.jpeg', 'Portable commercial cookstove designed for mobile catering and food trucks. Easy to transport and set up.', ['Capacity: 50L-100L', 'Fuel: Honey Comb Charcoal', 'Ideal for food trucks & events', 'Rental available'] )" />
+                    </div>
+                    <div class="stove-info">
+                        <h3>Mobile Commercial Stove</h3>
+                        <p><strong>Capacity:</strong> 50L - 100L</p>
+                        <p><strong>Ideal for:</strong> Food trucks, mobile caterers, events</p>
+                        <p><strong>Fuel:</strong> Honey Comb Charcoal Briquettes</p>
+                        <p><strong>Rental Available:</strong> Rent and return</p>
+                        <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20rent%20Mobile%20Commercial%20Stove" 
+                           target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Inquire via WhatsApp</a>
+                    </div>
                 </div>
             </div>
-
-            <!-- Mobile Commercial Stove -->
-            <div class="stove-card featured">
-                <div class="stove-badge"><i class="fas fa-star"></i> MOBILE</div>
-                <div class="stove-img-wrapper">
-                    <img src="assets/images/Commercial_Eco_Cookstove_Unit.jpeg" alt="Mobile Commercial Stove" class="stove-img" onclick="openProductModal('Mobile Commercial Stove', 'assets/images/Commercial_Eco_Cookstove_Unit.jpeg', 'Portable commercial cookstove designed for mobile catering and food trucks. Easy to transport and set up.', ['Capacity: 50L-100L', 'Fuel: Honey Comb Charcoal', 'Ideal for food trucks & events', 'Rental available'] )" />
-                </div>
-                <div class="stove-info">
-                    <h3>Mobile Commercial Stove</h3>
-                    <p><strong>Capacity:</strong> 50L - 100L</p>
-                    <p><strong>Ideal for:</strong> Food trucks, mobile caterers, events</p>
-                    <p><strong>Fuel:</strong> Honey Comb Charcoal Briquettes</p>
-                    <p><strong>Rental Available:</strong> Rent and return</p>
-                    <a href="https://wa.me/237XXXXXXXXX?text=Hello%20–%20I%20want%20to%20rent%20Mobile%20Commercial%20Stove" 
-                       target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Inquire via WhatsApp</a>
-                </div>
+            <div class="stove-note">
+                <p><i class="fas fa-bolt" style="color:#f57c00;"></i> <strong>Custom Orders:</strong> We build stoves to your specifications. Contact us for a custom quote.</p>
             </div>
         </div>
-
-        <div class="stove-note">
-            <p><i class="fas fa-bolt" style="color:#f57c00;"></i> <strong>Custom Orders:</strong> We build stoves to your specifications. Contact us for a custom quote.</p>
-        </div>
-    </div>
-</section>
+    </section>
 
     <!-- ===== CHARCOAL SECTION ===== -->
     <section id="charcoal" class="section charcoal-section">
@@ -375,6 +456,7 @@
                         target="_blank" class="btn-small-wa"><i class="fab fa-whatsapp"></i> Order via WhatsApp</a>
                     </div>
                 </div>
+
                 <!-- Honey Comb Briquettes -->
                 <div class="charcoal-card product-card" data-name="Honey Comb Briquettes" data-image="assets/images/Honeycomb_Biomass_Briquettes_withlogo.jpeg" data-description="Honeycomb briquettes with unique hole design for optimal airflow and long-lasting burn. Perfect for industrial use." data-features='["Long Burning", "100% Natural", "Industrial Use", "6-8 hours burn time"]'>
                     <img src="assets/images/Honeycomb_Biomass_Briquettes_withlogo.jpeg" alt="Honey Comb Briquettes" class="product-img-card" onclick="openProductModalFromCard(this)" />
@@ -428,6 +510,58 @@
                 <div class="about-image">
                     <img src="assets/images/greencity-briquette-logo.png" alt="GreenCity Briquettes Logo" style="width: 100%; max-width: 300px; height: auto; display: block; margin: 0 auto;" />
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALLERY SECTION ===== -->
+    <section id="gallery" class="gallery-section">
+        <div class="container" style="max-width:1200px; margin:0 auto; padding:0 20px;">
+            <div class="section-title animate-on-scroll">
+                <span class="badge"><i class="fas fa-images"></i> Gallery</span>
+                <h2>Energy <span class="highlight">Moments</span></h2>
+                <p>Capturing our charcoal production, stoves, and community impact</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-camera"></i>
+                        <span>Add Photo</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-camera"></i>
+                        <span>Add Photo</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-camera"></i>
+                        <span>Add Photo</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-camera"></i>
+                        <span>Add Photo</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-camera"></i>
+                        <span>Add Photo</span>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <div class="gallery-placeholder">
+                        <i class="fas fa-camera"></i>
+                        <span>Add Photo</span>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-note">
+                <p><i class="fas fa-info-circle"></i> Photos coming soon – check back for updates!</p>
             </div>
         </div>
     </section>
@@ -507,39 +641,30 @@
         </div>
     </div>
 
-   <!-- ===== FOOTER ===== -->
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <p>&copy; 2026 GreenCity Briquettes – A Division of GreenCity Enterprises</p>
-            <p><i class="fas fa-fire" style="color:#f57c00;"></i> Sustainable Energy for Urban Living – Kumba, Cameroon</p>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2026 GreenCity Briquettes – A Division of GreenCity Enterprises</p>
+                <p><i class="fas fa-fire" style="color:#f57c00;"></i> Sustainable Energy for Urban Living – Kumba, Cameroon</p>
+            </div>
+            <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; align-items: center;">
+                <img src="assets/images/greencity-enterprises-logo.png" alt="GreenCity Enterprises" style="height: 50px; object-fit: contain; opacity: 0.8;">
+                <img src="assets/images/greencity-foods-logo.png" alt="GreenCity Foods" style="height: 50px; object-fit: contain; opacity: 0.8;">
+                <img src="assets/images/greencity-briquette-logo.png" alt="GreenCity Briquettes" style="height: 50px; object-fit: contain; opacity: 0.8;">
+            </div>
+            <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.06);">
+                <p style="font-size:0.7rem; color:rgba(255,255,255,0.25);">
+                    Crafted with <span style="color:#e74c3c;"><i class="fas fa-heart"></i></span> by 
+                    <a href="#" target="_blank" style="color:#f57c00; text-decoration:none; font-weight:600;">TMF</a>
+                    <span style="color:rgba(255,255,255,0.1); margin:0 6px;">•</span>
+                    <span style="color:rgba(255,255,255,0.15); font-size:0.65rem;">Towa Munwu Fohtung</span>
+                    <span style="color:rgba(255,255,255,0.08); margin:0 6px;">|</span>
+                    <span style="color:rgba(255,255,255,0.12); font-size:0.6rem; font-style:italic;">Think. Make. Flow.</span>
+                </p>
+            </div>
         </div>
-
-        <!-- Footer Logos -->
-        <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; align-items: center;">
-            <img src="assets/images/greencity-enterprises-logo.png" alt="GreenCity Enterprises" style="height: 60px; object-fit: contain; opacity: 0.8;">
-            <img src="assets/images/greencity-foods-logo.png" alt="GreenCity Foods" style="height: 60px; object-fit: contain; opacity: 0.8;">
-        </div>
-
-        <div style="margin-top:12px; padding-top:12px; border-top:1px solid rgba(255,255,255,0.06);">
-            <p style="font-size:0.7rem; color:rgba(255,255,255,0.25);">
-                Crafted with <span style="color:#e74c3c;"><i class="fas fa-heart"></i></span> by 
-                <a href="#" target="_blank" 
-                   style="color:#f57c00; text-decoration:none; font-weight:600;">
-                   TMF
-                </a>
-                <span style="color:rgba(255,255,255,0.1); margin:0 6px;">•</span>
-                <span style="color:rgba(255,255,255,0.15); font-size:0.65rem;">
-                    Towa Munwu Fohtung
-                </span>
-                <span style="color:rgba(255,255,255,0.08); margin:0 6px;">|</span>
-                <span style="color:rgba(255,255,255,0.12); font-size:0.6rem; font-style:italic;">
-                    Think. Make. Flow.
-                </span>
-            </p>
-        </div>
-    </div>
-</footer>
+    </footer>
 
     <!-- ===== MODAL JAVASCRIPT ===== -->
     <script>
@@ -567,7 +692,7 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // ===== OPEN FROM CARD (click on image) =====
+        // ===== OPEN FROM CARD =====
         function openProductModalFromCard(imgElement) {
             var card = imgElement.closest('.product-card');
             var name = card.dataset.name;
